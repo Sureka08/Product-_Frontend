@@ -13,7 +13,7 @@ export default function HomePage() {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/40" />
+        <div className="absolute inset-0 bg-linear-to-r from-black via-black/75 to-black/40" />
       </div>
 
       <div className="relative z-10 px-6 md:px-12 lg:px-20 py-6">
@@ -27,7 +27,7 @@ export default function HomePage() {
               Home
             </Link>
             <Link
-              href="/products"
+              href="/ADD"
               className="rounded-xl bg-blue-400 px-5 py-2 text-black font-semibold hover:bg-blue-300 transition"
             >
               Add Mobile
@@ -73,14 +73,14 @@ export default function HomePage() {
 
           {/* Right side */}
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/10 p-4 backdrop-blur-xl shadow-2xl">
-              <div className="overflow-hidden rounded-[1.5rem]">
+            <div className="relative w-full max-w-xl rounded-4xl border border-white/10 bg-white/10 p-4 backdrop-blur-xl shadow-2xl">
+              <div className="overflow-hidden rounded-3xl">
                 <Image
                   src="/image.png"
                   alt="Featured Mobile"
                   width={800}
                   height={700}
-                  className="h-[500px] w-full object-cover"
+                  className="h-125 w-full object-cover"
                 />
               </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Product = {
   _id: string;
@@ -20,6 +20,8 @@ export default function ProductsPage() {
     price: '',
   });
   const [editId, setEditId] = useState<string | null>(null);
+
+  const formRef = useRef<HTMLDivElement | null>(null);
 
   const loadProducts = async () => {
     try {
@@ -62,6 +64,11 @@ export default function ProductsPage() {
 
       setForm({ name: '', description: '', price: '' });
       loadProducts();
+
+      formRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
     } catch (error) {
       console.error('Failed to save product:', error);
     }
@@ -73,6 +80,11 @@ export default function ProductsPage() {
       name: product.name,
       description: product.description,
       price: String(product.price),
+    });
+
+    formRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
     });
   };
 
@@ -89,7 +101,7 @@ export default function ProductsPage() {
 
   return (
     <main className="min-h-screen bg-gray-100 text-black">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl px-4 py-6">
         <Link
           href="/"
           className="inline-flex items-center text-sm text-black/70 hover:text-black transition mb-6"
@@ -97,8 +109,78 @@ export default function ProductsPage() {
           ← Back
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-8 items-start">
-          <div className="rounded-3xl border border-gray-300 bg-gray-200/10 backdrop-blur-xl shadow-2xl p-6 lg:sticky lg:top-8">
+        <div>
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-blue-300 text-sm font-medium tracking-[0.2em] uppercase mb-2">
+                Inventory
+              </p>
+              <h2 className="text-3xl font-bold">Your Products</h2>
+              <p className="text-black/60 mt-2 text-sm">
+                Manage all listed Mobile Phones in one premium dashboard.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-sm text-black/70">
+              Total: <span className="text-black font-semibold">{products.length}</span>
+            </div>
+          </div>
+
+          {products.length === 0 ? (
+            <div className="rounded-3xl border border-dashed border-black/15 bg-black/5 p-10 text-center text-black/60">
+              No products yet. Add your first Mobile to start your mobile shop.
+            </div>
+          ) : (
+            <div className="grid gap-5">
+              {products.map((product) => (
+                <div
+                  key={product._id}
+                  className="group rounded-3xl border border-black/10 bg-black/10 backdrop-blur-xl shadow-xl p-6 hover:border-blue-400/40 hover:bg-black/15 transition"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                    <div className="flex items-start gap-4">
+                      <div>
+                        <h3 className="text-2xl font-bold mb-1">{product.name}</h3>
+                        <p className="text-black/65 max-w-xl">{product.description}</p>
+                        <p className="mt-3 text-blue-300 font-semibold text-lg">
+                          Rs. {product.price}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => handleEdit(product)}
+                        className="rounded-2xl bg-blue-500 px-5 py-3 font-medium text-black hover:bg-blue-400 transition shadow-lg shadow-blue-500/20"
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        onClick={() => handleDelete(product._id)}
+                        className="rounded-2xl bg-red-500 px-5 py-3 font-medium text-black hover:bg-red-300 transition shadow-lg shadow-red-500/20"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div className="grid grid-cols-1 gap-8 items-start">
+          <div
+            ref={formRef}
+            className="w-full rounded-3xl border border-gray-300 bg-gray-200/10 backdrop-blur-xl shadow-2xl p-8 lg:sticky lg:top-8"
+          >
             <div className="mb-6">
               <p className="text-blue-300 text-sm font-medium tracking-[0.2em] uppercase mb-2">
                 😍
@@ -111,7 +193,7 @@ export default function ProductsPage() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm text-black/70 mb-2">Mobile Name</label>
                 <input
@@ -130,7 +212,7 @@ export default function ProductsPage() {
                   placeholder="Enter mobile description"
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition min-h-[120px]"
+                  className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition min-h-[140px]"
                   required
                 />
               </div>
@@ -147,10 +229,10 @@ export default function ProductsPage() {
                 />
               </div>
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex justify-center gap-3 pt-3 flex-wrap">
                 <button
                   type="submit"
-                  className="flex-1 rounded-2xl bg-blue-400 text-black font-semibold py-3 hover:bg-blue-300 transition shadow-lg shadow-blue-500/20"
+                  className="w-fit rounded-2xl bg-blue-400 text-black font-semibold px-8 py-3 hover:bg-blue-300 transition shadow-lg shadow-blue-500/20"
                 >
                   {editId ? 'Update Mobile' : 'Add Mobile'}
                 </button>
@@ -162,77 +244,13 @@ export default function ProductsPage() {
                       setEditId(null);
                       setForm({ name: '', description: '', price: '' });
                     }}
-                    className="rounded-2xl border border-black/15 px-5 py-3 text-black/80 hover:bg-black/10 transition"
+                    className="w-fit rounded-2xl border border-black/15 px-6 py-3 text-black/80 hover:bg-black/10 transition"
                   >
                     Cancel
                   </button>
                 )}
               </div>
             </form>
-          </div>
-
-          {/* Product List */}
-          <div>
-            <div className="mb-6 flex items-end justify-between gap-4">
-              <div>
-                <p className="text-blue-300 text-sm font-medium tracking-[0.2em] uppercase mb-2">
-                  Inventory
-                </p>
-                <h2 className="text-3xl font-bold">Your Products</h2>
-                <p className="text-black/60 mt-2 text-sm">
-                  Manage all listed Mobile Phoness in one premium dashboard.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-sm text-black/70">
-                Total: <span className="text-black font-semibold">{products.length}</span>
-              </div>
-            </div>
-
-            {products.length === 0 ? (
-              <div className="rounded-3xl border border-dashed border-black/15 bg-black/5 p-10 text-center text-black/60">
-                No products yet. Add your first Mobile to start your mobile shop.
-              </div>
-            ) : (
-              <div className="grid gap-5">
-                {products.map((product, index) => (
-                  <div
-                    key={product._id}
-                    className="group rounded-3xl border border-black/10 bg-black/10 backdrop-blur-xl shadow-xl p-6 hover:border-blue-400/40 hover:bg-black/15 transition"
-                  >
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-                      <div className="flex items-start gap-4">
-                        
-
-                        <div>
-                          <h3 className="text-2xl font-bold mb-1">{product.name}</h3>
-                          <p className="text-black/65 max-w-xl">{product.description}</p>
-                          <p className="mt-3 text-blue-300 font-semibold text-lg">
-                            Rs. {product.price}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-3">
-                        <button
-                          onClick={() => handleEdit(product)}
-                          className="rounded-2xl bg-blue-500 px-5 py-3 font-medium text-black hover:bg-blue-400 transition shadow-lg shadow-blue-500/20"
-                        >
-                          Edit
-                        </button>
-
-                        <button
-                          onClick={() => handleDelete(product._id)}
-                          className="rounded-2xl bg-red-500 px-5 py-3 font-medium text-black hover:bg-red-300 transition shadow-lg shadow-red-500/20"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </div>

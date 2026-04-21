@@ -2,10 +2,13 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const API = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AddMobilePage() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -31,11 +34,11 @@ export default function AddMobilePage() {
       price: '',
     });
 
-    alert('Mobile added successfully');
+    router.push('/VIEW');
   };
 
   return (
-    <main className="min-h-screen bg-gray-100 text-black">
+    <main className="min-h-screen bg-gray-100 text-black px-6 py-10">
       <div className="mx-auto max-w-3xl">
         <Link
           href="/"
@@ -44,7 +47,7 @@ export default function AddMobilePage() {
           ← Back
         </Link>
 
-        <div className="rounded-3xl border border-black/10 bg-black/10 backdrop-blur-xl shadow-2xl p-8">
+          <div className="rounded-3xl border border-gray-300 bg-gray-200/10 backdrop-blur-xl shadow-2xl p-6 lg:sticky lg:top-8">
           <p className="text-blue-500 text-sm font-medium tracking-[0.2em] uppercase mb-2">
             Add New Mobile
           </p>
@@ -62,7 +65,7 @@ export default function AddMobilePage() {
                 placeholder="Enter mobile name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-4 text-black placeholder:text-black/40 outline-none focus:border-cyan-400"
+                  className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition"
                 required
               />
             </div>
@@ -73,7 +76,7 @@ export default function AddMobilePage() {
                 placeholder="Enter mobile description"
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
-                className="w-full min-h-[140px] rounded-2xl border border-black/10 bg-black/10 px-4 py-4 text-black placeholder:text-black/40 outline-none focus:border-b-400"
+                className="w-full min-h-35 rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition"
                 required
               />
             </div>
@@ -85,14 +88,16 @@ export default function AddMobilePage() {
                 placeholder="Enter price"
                 value={form.price}
                 onChange={(e) => setForm({ ...form, price: e.target.value })}
-                className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-4 text-black placeholder:text-black/40 outline-none focus:border-cyan-400"
+                className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition"
                 required
               />
             </div>
 
-            <button className="w-full rounded-2xl bg-blue-400 px-6 py-4 text-lg font-bold text-black hover:bg-blue-300 transition">
-              Add Mobile
-            </button>
+            <div className="flex justify-center mt-15">
+                <button className="w-fit px-50 py-3 rounded-2xl bg-blue-500 text-white font-semibold hover:bg-blue-400 transition shadow-xl shadow-blue-500/30">
+                    Add Mobile
+                </button>
+                </div>
           </form>
         </div>
       </div>

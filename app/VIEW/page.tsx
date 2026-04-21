@@ -76,7 +76,7 @@ export default function MobilesPage() {
             {products.map((product) => (
               <div
                 key={product._id}
-                className="rounded-3xl border border-black/10 bg-white shadow-xl p-6 hover:border-blue-400/40 transition"
+                  className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
                   <div>
@@ -89,25 +89,13 @@ export default function MobilesPage() {
 
                   <div className="flex gap-3 flex-wrap">
                     <Link
-                      href={`/mobiles/${product._id}`}
-                      className="rounded-2xl bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-700 transition"
-                    >
-                      View Mobile
-                    </Link>
-
-                    <Link
-                      href={`/add-mobile?edit=${product._id}`}
+                      href="/products"
                       className="rounded-2xl bg-blue-500 px-5 py-3 font-medium text-white hover:bg-blue-400 transition"
                     >
-                      Edit
+                        Manage
                     </Link>
 
-                    <button
-                      onClick={() => handleDelete(product._id)}
-                      className="rounded-2xl bg-red-500 px-5 py-3 font-medium text-white hover:bg-red-400 transition"
-                    >
-                      Delete
-                    </button>
+                   
                   </div>
                 </div>
               </div>
