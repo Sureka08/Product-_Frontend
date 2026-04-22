@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  'https://productbackend-production-b452.up.railway.app';
+  'http://localhost:3001';
 
 export default function AddMobilePage() {
   const router = useRouter();
@@ -20,23 +20,32 @@ export default function AddMobilePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await fetch(`${API}/products`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: form.name,
-        description: form.description,
-        price: Number(form.price),
-      }),
-    });
+    try {
+      const response = await fetch(`${API}/products`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          description: form.description,
+          price: Number(form.price),
+        }),
+      });
 
-    setForm({
-      name: '',
-      description: '',
-      price: '',
-    });
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
 
-    router.push('/VIEW');
+      setForm({
+        name: '',
+        description: '',
+        price: '',
+      });
+
+      router.push('/VIEW');
+    } catch (error) {
+      console.error('Failed to create product:', error);
+      alert('Could not save the mobile. Make sure the backend is running on http://localhost:3001.');
+    }
   };
   const handlePriceChange = (value: string) => {
   if (/^\d*\.?\d{0,2}$/.test(value)) {

@@ -12,7 +12,7 @@ type Product = {
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  'https://productbackend-production-b452.up.railway.app';
+  'http://localhost:3001';
 
 export default function MobilesPage() {
   const [products, setProducts] = useState<Product[]>([]);
