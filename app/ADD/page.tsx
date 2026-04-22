@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-const API = process.env.NEXT_PUBLIC_API_URL;
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  'https://productbackend-production-b452.up.railway.app';
 
 export default function AddMobilePage() {
   const router = useRouter();

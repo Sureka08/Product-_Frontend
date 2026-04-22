@@ -10,7 +10,9 @@ type Product = {
   price: number;
 };
 
-const API = process.env.NEXT_PUBLIC_API_URL;
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  'https://productbackend-production-b452.up.railway.app';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
