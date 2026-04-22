@@ -47,12 +47,15 @@ export default function MobilesPage() {
   return (
     <main className="min-h-screen bg-gray-100 text-black px-6 py-10">
       <div className="mx-auto max-w-6xl">
-        <Link
-          href="/"
-          className="inline-flex items-center text-sm text-black/70 hover:text-black transition mb-6"
-        >
-          ← Back
-        </Link>
+       <Link
+  href="/"
+  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black/5 backdrop-blur-xl border border-black/10 text-sm font-medium text-black hover:text-blue-500 hover:scale-105 transition-all duration-200 shadow-md"
+>
+  <span className="text-lg">←</span>
+  Back
+</Link>
+<br />
+<br />
 
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
@@ -61,11 +64,25 @@ export default function MobilesPage() {
               Browse all mobile phones in your premium store dashboard.
             </p>
           </div>
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+  
+  <div className="flex gap-3">
+    <Link
+      href="/products"
+      className="rounded-2xl bg-blue-500 px-5 py-3 font-medium text-white hover:bg-blue-400 transition"
+    >
+      Manage
+    </Link>
+  </div>
 
-          <div className="rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-sm text-black/70">
-            Total: <span className="text-black font-semibold">{products.length}</span>
-          </div>
-        </div>
+  <div className="rounded-2xl border border-black/10 bg-black/10 px-5 py-3 text-sm text-black/70">
+    Total: <span className="text-black font-semibold">{products.length}</span>
+  </div>
+
+</div>
+</div>
+         
+<br />
 
         {products.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-black/15 bg-black/5 p-10 text-center text-black/60">
@@ -83,20 +100,11 @@ export default function MobilesPage() {
                     <h3 className="text-2xl font-bold mb-1">{product.name}</h3>
                     <p className="text-black/65 max-w-xl">{product.description}</p>
                     <p className="mt-3 text-blue-500 font-semibold text-lg">
-                      Rs. {product.price}
+                      LKR. {product.price}
                     </p>
                   </div>
 
-                  <div className="flex gap-3 flex-wrap">
-                    <Link
-                      href="/products"
-                      className="rounded-2xl bg-blue-500 px-5 py-3 font-medium text-white hover:bg-blue-400 transition"
-                    >
-                        Manage
-                    </Link>
-
-                   
-                  </div>
+                 
                 </div>
               </div>
             ))}

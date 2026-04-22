@@ -26,12 +26,7 @@ export default function HomePage() {
             <Link href="/" className="text-white/80 hover:text-blue-400 transition">
               Home
             </Link>
-            <Link
-              href="/ADD"
-              className="rounded-xl bg-blue-400 px-5 py-2 text-black font-semibold hover:bg-blue-300 transition"
-            >
-              Add Mobile
-            </Link>
+            
           </div>
         </nav>
 

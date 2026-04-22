@@ -98,16 +98,34 @@ export default function ProductsPage() {
       console.error('Failed to delete product:', error);
     }
   };
+  const handlePriceChange = (value: string) => {
+  if (/^\d*\.?\d{0,2}$/.test(value)) {
+    setForm({ ...form, price: value });
+  }
+};
+
+const handlePriceBlur = () => {
+  if (!form.price) return;
+
+  const price = Number(form.price);
+  if (!Number.isNaN(price)) {
+    setForm({ ...form, price: price.toFixed(2) });
+  }
+};
 
   return (
     <main className="min-h-screen bg-gray-100 text-black">
       <div className="mx-auto max-w-6xl px-4 py-6">
+        
         <Link
-          href="/"
-          className="inline-flex items-center text-sm text-black/70 hover:text-black transition mb-6"
+          href="/VIEW"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black/5 backdrop-blur-xl border border-black/10 text-sm font-medium text-black hover:text-blue-500 hover:scale-105 transition-all duration-200 shadow-md"
         >
-          ← Back
+        <span className="text-lg">←</span>
+        Back
         </Link>
+        <br />
+        <br />
 
         <div>
           <div className="mb-6 flex items-end justify-between gap-4">
@@ -143,7 +161,7 @@ export default function ProductsPage() {
                         <h3 className="text-2xl font-bold mb-1">{product.name}</h3>
                         <p className="text-black/65 max-w-xl">{product.description}</p>
                         <p className="mt-3 text-blue-300 font-semibold text-lg">
-                          Rs. {product.price}
+                          LKR. {product.price}
                         </p>
                       </div>
                     </div>
@@ -212,19 +230,24 @@ export default function ProductsPage() {
                   placeholder="Enter mobile description"
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition min-h-[140px]"
+                  className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition min-h-35"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm text-black/70 mb-2">Price</label>
+             <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black/60 text-sm">
+                  LKR
+                </span>
+
                 <input
-                  type="number"
-                  placeholder="Enter price"
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0.00"
                   value={form.price}
-                  onChange={(e) => setForm({ ...form, price: e.target.value })}
-                  className="w-full rounded-2xl border border-black/10 bg-black/10 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition"
+                  onChange={(e) => handlePriceChange(e.target.value)}
+                  onBlur={handlePriceBlur}
+                  className="w-full no-spinner rounded-2xl border border-black/10 bg-black/10 pl-14 pr-4 py-3 text-black placeholder:text-black/40 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition"
                   required
                 />
               </div>
