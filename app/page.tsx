@@ -19,7 +19,7 @@ export default function HomePage() {
       <div className="relative z-10 px-6 md:px-12 lg:px-20 py-6">
         <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-6 py-4 backdrop-blur-md shadow-lg">
           <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-white">
-            Suka Mobiles
+            Suka iStore
           </h1>
 
           <div className="flex items-center gap-8 text-sm md:text-lg font-medium">
@@ -33,19 +33,19 @@ export default function HomePage() {
         <section className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2 items-center min-h-[88vh] gap-12">
           <div className="pt-10 lg:pt-0">
             <p className="mb-4 text-blue-400 tracking-[0.3em] uppercase text-sm md:text-base font-medium">
-              Premium Mobile Store
+              Premium iStore
             </p>
 
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] tracking-tight">
               THE BEST
               <br />
-              MOBILE
+              IPHONE
               <br />
               SHOP
             </h1>
 
             <p className="mt-6 max-w-xl text-base md:text-lg text-white/70 leading-8">
-              Discover premium smartphones, latest accessories, and the best mobile deals
+              Discover premium iPhones, latest accessories, and the best mobile deals
               in one modern shopping experience.
             </p>
 
@@ -54,14 +54,14 @@ export default function HomePage() {
                 href="/ADD"
                 className="rounded-2xl bg-blue-400 px-8 py-4 text-lg font-bold text-black shadow-lg hover:bg-blue-300 transition"
               >
-                Add Mobile
+                Add iPhone
               </Link>
 
               <Link
                 href="/VIEW"
                 className="rounded-2xl border border-white/20 bg-white/5 px-8 py-4 text-lg font-semibold text-white hover:bg-white/10 transition"
               >
-                View Mobiles
+                View iPhones
               </Link>
             </div>
           </div>
