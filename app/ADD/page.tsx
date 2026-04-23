@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const API =
-  process.env.NEXT_PUBLIC_API_URL ||
-  'https://productbackend-production-b452.up.railway.app';
+  process.env.NEXT_PUBLIC_API_URL;
 
 export default function AddMobilePage() {
   const router = useRouter();
